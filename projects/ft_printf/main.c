@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdarg.h>
 #include "printf.h"
+#include "libft.h"
+#include <locale.h>
 
 int main()
 {
@@ -22,7 +24,20 @@ int main()
 	int oo = ft_printf("%015.14u\n", -12345);
 	int	hh = printf("%015.14u\n", -12345);
 	printf("%d   %d\n", oo, hh);
-	int	h = printf("%#-011.4x|\n", 232442);
-	printf("%d\n", h);
+	int o = ft_printf("%#.o|\n", 232442);
+	int	h = printf("%#.o|\n", 232442);
+	printf("%d   %d\n", o, h);
+	int	zz = ft_printf("%21.16p|\n", &h);
+	int	z = printf("%21.16p|\n", &h);
+	printf("%d   %d\n", zz, z);
+	int ee = ft_printf("%20.6s|\n", "I have one dream!");
+	int e = printf("%20.6s|\n", "I have one dream!");
+	printf("%d   %d\n",ee, e);
+	setlocale (LC_ALL, "");
+	int	uu = ft_printf("%10.5S|\n", NULL);
+	int u = printf("%10.5S|\n", NULL);
+	printf("%d   %d\n", uu, u);
+	ft_printf("{%03c}\n", 0);
+	printf("{%03c}\n", 0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: giabanji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 15:35:18 by giabanji          #+#    #+#             */
-/*   Updated: 2017/12/22 20:17:22 by giabanji         ###   ########.fr       */
+/*   Updated: 2017/12/28 15:51:57 by giabanji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 
 # include <stdarg.h>
 # include <stdint.h>
-# include "libft/libft.h"
+# include <wchar.h>
+# include "libft.h"
 
 int				g_size;
 int				ft_printf(char *format, ...);
 int				ft_isdisc(char s);
-//int				ft_validformat(char *format);
 int				ft_validstruct(char *s, int n);
-void			print_str(va_list ap);
 void			ft_readformat(char *s, va_list ap);
 void			print_d(va_list ap);
 void			print_u(va_list ap);
@@ -30,7 +29,6 @@ void			print_x(va_list ap);
 void			print_o(va_list ap);
 void			print_c(va_list ap);
 void			print_s(va_list ap);
-void			upper(char **str);
 void			lower(char **str);
 void			ft_nullstr(void);
 int				ft_validflag(char *s, int n);
@@ -43,7 +41,17 @@ void			print_cifer(char *s);
 void			print_left_cif(char *s, int char_l);
 void			print_wright_cif(char *s);
 void			pr_d_c(char *s, int n);
-void			print_ch(int c);
+void			printch(int c);
+void			printox(char *s);
+void			printlef(char *s, int char_l);
+void			printwri(char *s, int char_l);
+void			print_strok(char *s);
+void			print_str_len(char *s, int char_l);
+void			print_ws(va_list ap);
+void			print_wdef(wchar_t *s, int char_l);
+void			print_wchar(wchar_t *str, int n);
+int				wstrlen_if(wchar_t *str, int n);
+int				len_wchar(wchar_t c);
 
 typedef struct	s_date
 {

@@ -6,7 +6,7 @@
 /*   By: giabanji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 16:59:43 by giabanji          #+#    #+#             */
-/*   Updated: 2017/12/19 17:25:39 by giabanji         ###   ########.fr       */
+/*   Updated: 2017/12/28 18:30:27 by giabanji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,10 @@ int		ft_isdisc(char s)
 {
 	if (s == 's' || s == 'S' || s == 'p' || s == 'd' || s == 'i' || s == 'O'
 			|| s == 'u' || s == 'U' || s == 'x' || s == 'X' ||
-			s == 'c' || s == 'C' || s == '%')
+			s == 'c' || s == 'C' || s == '%' || s == 'o' || s == 'D')
 		return ((int)s);
 	return (0);
 }
-
-/*int		ft_validformat(char *format)
-{
-	int		i;
-
-	if (!format)
-		return (-1);
-	if (format[0] == '\0')
-		return (0);
-	i = -1;
-	while (format[++i])
-	{
-		if (format[i] == '%' && format[i + 1] != '\0')
-		{
-			i++;
-			while (format[i] && ft_isdisc(format[i]) < 1)
-				i++;
-			if (ft_isdisc(format[i]) < 2)
-				return (-1);
-		}
-		else if (format[i] == '%' && format[i + 1] == '\0')
-			return (-1);
-	}
-	return (1);
-}*/
 
 void	print_s(va_list ap)
 {
@@ -53,68 +28,58 @@ void	print_s(va_list ap)
 	str = va_arg(ap, char*);
 	if (!str)
 	{
-		ft_putstr("(null)");
-		g_size += 6;
+		str = ft_strdup("(null)");
+		print_strok(str);
+		free(str);
 	}
 	else
-	{
-		ft_putstr(str);
-		g_size += (int)ft_strlen(str);
-	}
+		print_strok(str);
 }
 
-/*void	print_ws(va_list ap)
+void	print_ws(va_list ap)
 {
 	wchar_t	*str;
 	int		char_l;
 
 	str = va_arg(ap, wchar_t*);
 	if (!str)
-		str = (wchar_t*)ft_strdup("(null)");
+	{
+		str = (wchar_t*)malloc(sizeof(wchar_t) * 7);
+		str[0] = '(';
+		str[1] = 'n';
+		str[2] = 'u';
+		str[3] = 'l';
+		str[4] = 'l';
+		str[5] = ')';
+		str[6] = '\0';
+	}
 	char_l = ((g_data.accuracy >= 0 && g_data.accuracy < (int)ft_wstrlen(str))
 			? g_data.accuracy : (int)ft_wstrlen(str));
 	if (g_data.length <= char_l)
+	{
 		print_wchar(str, char_l);
-	else if (g_data.length > char_l)
-		print_Str(str, char_l);
+		g_size += wstrlen_if(str, char_l);
+	}
+	else
+		print_wdef(str, char_l);
 }
 
-void	print_Str(wchar_t *str, int n)
+void	print_wdef(wchar_t *s, int char_l)
 {
+	int		i;
+
+	i = 0;
 	if (g_data.defis > 0)
 	{
-		print_wchar(str, n);
-		while (n++ != g_data.length)
-		{
-			ft_putchar(32);
-			g_size++;
-		}
-		if (g_data.accuracy >= n)
-		{
-			print_wchar(str, n);
-			while (n++ < g_data.length)
-			{
-				ft_putchar(32);
-				g_size++;
-			}
-		}*/
-		/*else if (g_data.accuracy >= 0)
-		{
-			print_wchar(str, g_data.accuracy);
-			while (g_data.accuracy++ != g_data.length)
-			{
-				ft_putchar(32);
-				g_size++;
-			}
-		}
+		print_wchar(s, char_l);
+		while (i++ < (g_data.length - wstrlen_if(s, char_l)))
+			ft_putchar(' ');
 	}
 	else
 	{
-		while (g_data.length-- != n)
-		{
-			ft_putchar(32);
-			g_size++;
-		}
-		print_wchar(str, n);
+		while (i++ < (g_data.length - wstrlen_if(s, char_l)))
+			ft_putchar(' ');
+		print_wchar(s, char_l);
 	}
-}*/
+	g_size += g_data.length;
+}

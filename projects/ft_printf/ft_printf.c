@@ -6,7 +6,7 @@
 /*   By: giabanji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 16:44:34 by giabanji          #+#    #+#             */
-/*   Updated: 2017/12/19 17:24:07 by giabanji         ###   ########.fr       */
+/*   Updated: 2017/12/28 18:20:49 by giabanji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	print_str(va_list ap)
 		print_c(ap);
 	else if (g_data.convers == 's')
 		print_s(ap);
-	/*else if (g_data.convers == 'S')
-		print_ws(ap);*/
+	else if (g_data.convers == 'S')
+		print_ws(ap);
 }
 
 int		ft_validstruct(char *s, int n)
@@ -84,8 +84,6 @@ int		ft_printf(char *format, ...)
 	va_list	ap;
 
 	g_size = 0;
-	/*if (ft_validformat(format) == -1 || ft_validformat(format) == 0)
-		return (ft_validformat(format));*/
 	if (format && format[0] != '\0')
 	{
 		va_start(ap, format);

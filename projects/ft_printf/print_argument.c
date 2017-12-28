@@ -6,7 +6,7 @@
 /*   By: giabanji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 17:10:05 by giabanji          #+#    #+#             */
-/*   Updated: 2017/12/22 20:42:28 by giabanji         ###   ########.fr       */
+/*   Updated: 2017/12/28 18:18:59 by giabanji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	print_d(va_list ap)
 	else
 		str = ft_itoa((int)tmp);
 	print_cifer(str);
+	free(str);
 }
 
 void	print_u(va_list ap)
@@ -46,20 +47,21 @@ void	print_u(va_list ap)
 		g_data.l = 1;
 	tmp = va_arg(ap, void*);
 	if (g_data.h != 0)
-		str = ft_itoa((unsigned short int)tmp);
+		str = ft_itoa_base_u((unsigned short int)tmp, 10);
 	else if (g_data.hh != 0)
-		str = ft_itoa((unsigned char)tmp);
+		str = ft_itoa_base_u((unsigned char)tmp, 10);
 	else if (g_data.l != 0)
 		str = ft_itoa_base_u((unsigned long int)tmp, 10);
 	else if (g_data.ll != 0)
 		str = ft_itoa_base_u((unsigned long long int)tmp, 10);
 	else if (g_data.z != 0)
-		str = ft_itoa((size_t)tmp);
+		str = ft_itoa_base_u((size_t)tmp, 10);
 	else if (g_data.j != 0)
 		str = ft_itoa_base_u((uintmax_t)tmp, 10);
 	else
 		str = ft_itoa_base_u((unsigned int)tmp, 10);
 	print_cifer(str);
+	free(str);
 }
 
 void	print_x(va_list ap)
@@ -84,8 +86,8 @@ void	print_x(va_list ap)
 		str = ft_itoa_base_u((unsigned int)tmp, 16);
 	if (g_data.convers == 'x')
 		lower(&str);
-	ft_putstr(str);
-	g_size += (int)ft_strlen(str);
+	printox(str);
+	free(str);
 }
 
 void	print_o(va_list ap)
@@ -110,8 +112,8 @@ void	print_o(va_list ap)
 		str = ft_itoa_base_u((uintmax_t)tmp, 8);
 	else
 		str = ft_itoa_base_u((unsigned int)tmp, 8);
-	ft_putstr(str);
-	g_size += (int)ft_strlen(str);
+	printox(str);
+	free(str);
 }
 
 void	print_c(va_list ap)
@@ -120,20 +122,18 @@ void	print_c(va_list ap)
 	char		*str;
 
 	if (g_data.convers == '%')
-		print_ch(g_data.convers);
+		printch(g_data.convers);
 	else if (g_data.convers == 'p')
 	{
 		tmp = va_arg(ap, void*);
 		str = ft_itoa_base_u((unsigned long long)tmp, 16);
 		lower(&str);
-		str = ft_strjoin("0x", str);
-		ft_putstr(str);
-		g_size += ((int)ft_strlen(str));
+		printox(str);
 		free(str);
 	}
 	else
 	{
 		tmp = va_arg(ap, void*);
-		print_ch((unsigned char)tmp);
+		printch((unsigned char)tmp);
 	}
 }

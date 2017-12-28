@@ -6,7 +6,7 @@
 /*   By: giabanji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 17:34:28 by giabanji          #+#    #+#             */
-/*   Updated: 2017/12/20 19:45:26 by giabanji         ###   ########.fr       */
+/*   Updated: 2017/12/28 19:51:00 by giabanji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int		ft_validacc(char *s, int n)
 {
 	if (g_data.accuracy == -1)
 		g_data.accuracy = 0;
+	if (s[n - 1] == '.' && s[n] == '0')
+		g_data.mod = 1;
 	if (s[n] > 47 && s[n] < 58)
 	{
 		g_data.accuracy = g_data.accuracy * 10 + ((int)s[n] - 48);
@@ -80,7 +82,7 @@ int		ft_validmod(char *s, int n)
 			g_data.hh = 1;
 		}
 		else
-			g_data.h = 0;
+			g_data.h = 1;
 		return (1);
 	}
 	else if (s[n] == 'j' || s[n] == 'z')

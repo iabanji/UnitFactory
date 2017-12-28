@@ -6,7 +6,7 @@
 /*   By: giabanji <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/19 17:48:19 by giabanji          #+#    #+#             */
-/*   Updated: 2017/12/22 19:53:46 by giabanji         ###   ########.fr       */
+/*   Updated: 2017/12/28 18:18:44 by giabanji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	print_sym(char **str)
 	if (s[0] == '-' || g_data.plus > 0)
 	{
 		ft_putchar((s[0] == '-') ? '-' : '+');
-		if (s[0] == '-' && g_data.defis > 0)
-			g_data.plus = 1;
+		if (s[0] == '-' && g_data.defis == 0)
+			g_data.plus = 0;
 		if (s[0] == '-')
 			*str = ft_strsub(s, 1, (int)ft_strlen(s));
 		g_data.space = 0;
@@ -34,6 +34,8 @@ void	print_cifer(char *s)
 {
 	int		char_l;
 
+	if (g_data.accuracy == 0 && s[0] == '0')
+		s[0] = '\0';
 	if (g_data.defis > 0)
 	{
 		char_l = ((g_data.accuracy > (int)ft_strlen(s))
@@ -54,7 +56,7 @@ void	print_left_cif(char *s, int char_l)
 	{
 		if (g_data.accuracy > (int)ft_strlen(s))
 		{
-			while (g_data.accuracy-- != (int)ft_strlen(s))
+			while (g_data.accuracy-- > (int)ft_strlen(s))
 				ft_putchar('0');
 		}
 		ft_putstr(s);
@@ -65,7 +67,7 @@ void	print_left_cif(char *s, int char_l)
 	{
 		if (g_data.accuracy > (int)ft_strlen(s))
 		{
-			while (g_data.accuracy-- != (int)ft_strlen(s))
+			while (g_data.accuracy-- > (int)ft_strlen(s))
 				ft_putchar('0');
 		}
 		ft_putstr(s);
@@ -90,7 +92,7 @@ void	print_wright_cif(char *s)
 		print_sym(&s);
 		if (g_data.accuracy > (int)ft_strlen(s))
 		{
-			while (g_data.accuracy-- != (int)ft_strlen(s))
+			while (g_data.accuracy-- > (int)ft_strlen(s))
 				ft_putchar('0');
 		}
 		ft_putstr(s);
@@ -109,7 +111,8 @@ void	pr_d_c(char *s, int n)
 		n++;
 	if (g_data.plus > 0 && s[0] != '-')
 		n++;
-	if (g_data.accuracy > (int)ft_strlen(s) && (g_data.plus > 0 || s[0] == '-'))
+	if (g_data.accuracy == (int)ft_strlen(s) && (g_data.plus > 0
+				|| s[0] == '-'))
 		n++;
 	while (n++ != g_data.length && g_data.zero == 0)
 		ft_putchar(' ');
